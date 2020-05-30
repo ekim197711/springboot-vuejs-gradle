@@ -18,6 +18,21 @@ repositories {
     mavenCentral()
 }
 
+processResources{
+    dependsOn 'copyFrontendToBuild'
+}
+
+task copyFrontendToBuild(type: Copy) {
+    dependsOn 'npmBuild'
+    from "$projectDir/src/myvuejs/dist/"
+    into "$buildDir/resources/main/static"
+}
+
+task npmBuild(type: Exec) {
+    workingDir './src/myvuejs/'
+    commandLine 'npm','run', 'build'
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
