@@ -22,6 +22,10 @@ processResources{
     dependsOn 'copyFrontendToBuild'
 }
 
+bootJar{
+    archiveFileName = "app.jar"
+}
+
 task copyFrontendToBuild(type: Copy) {
     dependsOn 'npmBuild'
     from "$projectDir/src/myvuejs/dist/"
